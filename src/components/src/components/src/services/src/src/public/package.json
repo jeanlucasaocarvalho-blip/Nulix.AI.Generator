@@ -1,0 +1,22 @@
+{
+  "name": "nulix-ai",
+  "version": "1.0.0",
+  "description": "Projeto Nulix AI - plataforma de ferramentas com IA",
+  "main": "src/App.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build"
+  },
+  "keywords": [
+    "IA",
+    "inteligência artificial",
+    "nulix",
+    "react"
+  ],
+  "author": "Seu Nome",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
