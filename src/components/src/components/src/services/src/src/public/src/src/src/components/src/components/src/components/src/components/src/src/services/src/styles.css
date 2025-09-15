@@ -1,0 +1,22 @@
+body {
+  background: linear-gradient(135deg, #20253e 0%, #23395d 100%);
+  color: #f4f6fa;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+}
+
+.glass-panel-dark {
+  background: rgba(34, 44, 78, 0.85);
+  border: 1px solid #3e4c7d;
+  box-shadow: 0 4px 24px rgba(18, 21, 41, 0.4);
+  color: #e9eefa;
+}
+
+button {
+  transition: box-shadow 0.2s;
+}
+
+button:active {
+  box-shadow: 0 2px 8px rgba(60, 90, 180, 0.25);
+}
