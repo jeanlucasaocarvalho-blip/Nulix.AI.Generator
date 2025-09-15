@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nulix AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
+      
+      :root {
+        /* Radical Color Palette */
+        --accent-red: #FF1F4B;
+        --accent-orange: #FF8A00;
+        --accent-yellow: #FFD60A;
+        --accent-blue: #0A84FF;
+        --accent-text: #FFFFFF;
+
+        /* Dark Theme */
+        --bg-dark: #000000;
+        --panel-bg-dark: rgba(10, 10, 10, 0.7);
+        --border-dark: rgba(255, 31, 75, 0.4);
+        --text-dark: #E5E5E7;
+        --text-muted-dark: #8A8A8E;
+        --input-dark: rgba(20, 20, 22, 0.8);
+        
+        /* Light Theme */
+        --bg-light: #F2F2F7;
+        --panel-bg-light: rgba(255, 255, 255, 0.7);
+        --border-light: rgba(200, 200, 205, 0.5);
+        --text-light: #08080A;
+        --text-muted-light: #636366;
+        --input-light: rgba(239, 239, 244, 0.8);
+      }
+
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        font-weight: 500;
+        transition-property: color, background-color;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 300ms;
+      }
+
+      #root {
+        height: 100%;
+        width: 100%;
+      }
+      
+      /* Radical Dark Theme Background */
+      html.dark body {
+        background-color: var(--bg-dark);
+        color: var(--text-dark);
+        background-image:
+          radial-gradient(circle at center, rgba(255, 31, 75, 0.1) 0%, transparent 40%),
+          repeating-linear-gradient(135deg, rgba(10, 132, 255, 0.1) 0, rgba(10, 132, 255, 0.1) 1px, transparent 1px, transparent 40px),
+          repeating-linear-gradient(45deg, rgba(255, 138, 0, 0.05) 0, rgba(255, 138, 0, 0.05) 1px, transparent 1px, transparent 40px);
+        background-size: 100% 100%, 40px 40px, 40px 40px;
+      }
+      
+      /* Light Theme */
+      html:not(.dark) body {
+         background-color: var(--bg-light);
+         color: var(--text-light);
+         background-image:
+          repeating-linear-gradient(45deg, rgba(150,150,150, 0.1) 0, rgba(150,150,150, 0.1) 1px, transparent 1px, transparent 35px),
+          repeating-linear-gradient(-45deg, rgba(150,150,150, 0.1) 0, rgba(150,150,150, 0.1) 1px, transparent 1px, transparent 35px);
+         background-size: 35px 35px;
+      }
+      
+      /* Futuristic Panels */
+      .glass-panel-dark {
+        background-color: var(--panel-bg-dark);
+        border: 1px solid var(--border-dark);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        box-shadow: 0 0 40px rgba(255, 31, 75, 0.25), inset 0 0 15px rgba(10, 132, 255, 0.15);
+      }
+      .glass-panel-light {
+        background-color: var(--panel-bg-light);
+        border: 1px solid var(--border-light);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+      }
+      
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      /* Dark */
+      html.dark ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; border: 1px solid #555; }
+      html.dark ::-webkit-scrollbar-thumb:hover { background: var(--accent-red); }
+      /* Light */
+      html:not(.dark) ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+      html:not(.dark) ::-webkit-scrollbar-thumb:hover { background: #bbb; }
+
+      /* Form Elements */
+      .form-input {
+        background-color: var(--input-light);
+        border: 1px solid var(--border-light);
+        color: var(--text-light);
+      }
+      .dark .form-input {
+        background-color: var(--input-dark);
+        border: 1px solid var(--border-dark);
+        color: var(--text-dark);
+        transition: border-color 0.2s, box-shadow 0.2s;
+      }
+      .dark .form-input:focus {
+        outline: none;
+        border-color: var(--accent-blue);
+        box-shadow: 0 0 10px rgba(10, 132, 255, 0.7);
+      }
+
+      /* Buttons */
+      .btn-primary {
+        background: linear-gradient(90deg, var(--accent-red), var(--accent-orange));
+        color: var(--accent-text);
+        font-weight: 700;
+        transition: all 0.2s ease-in-out;
+        border: 1px solid var(--accent-red);
+        text-shadow: 0 0 5px rgba(0,0,0,0.5);
+        box-shadow: 0 0 10px rgba(255, 138, 0, 0.5), 0 0 20px rgba(255, 31, 75, 0.5);
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 0 20px rgba(255, 138, 0, 0.8), 0 0 30px rgba(255, 31, 75, 0.8);
+      }
+      
+      /* Spinner Animation */
+      .nulix-spinner {
+        animation: nulix-spinner-spin 1s linear infinite, nulix-spinner-glow 2s ease-in-out infinite alternate;
+      }
+      @keyframes nulix-spinner-spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      @keyframes nulix-spinner-glow {
+        0% { box-shadow: 0 0 2px rgba(255, 31, 75, 0.3); }
+        50% { box-shadow: 0 0 10px 3px rgba(10, 132, 255, 0.5); }
+        100% { box-shadow: 0 0 2px rgba(255, 138, 0, 0.3); }
+      }
+
+      /* Content Transition */
+      .content-wrapper {
+        animation: content-fade-in 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      @keyframes content-fade-in {
+        from {
+          opacity: 0;
+          transform: translateY(20px) scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+    </style>
+    <script>
+      // Set theme on initial load using Tailwind's class strategy
+      (function() {
+        const theme = localStorage.getItem('nulix-theme');
+        if (theme === 'light') {
+          document.documentElement.classList.remove('dark');
+        } else {
+           document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+    <script type="importmap">
+      {
+        "imports": {
+          "react": "https://aistudiocdn.com/react@^19.1.1",
+          "react/": "https://aistudiocdn.com/react@^19.1.1/",
+          "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
+          "@google/genai": "https://aistudiocdn.com/@google/genai@^1.19.0"
+        }
+      }
+    </script>
+  </head>
+  <body class="font-sans antialiased">
+    <div id="root"></div>
+  </body>
+</html>
